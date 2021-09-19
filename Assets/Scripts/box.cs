@@ -7,6 +7,9 @@ public class box : MonoBehaviour
     public GameObject Box;
     public GameObject Warning;
 
+    public bool isCrash;
+    public float Size;
+    public LayerMask Layer;
     void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);  // 한 객체에 한번만
@@ -31,8 +34,16 @@ public class box : MonoBehaviour
         Box.SetActive(false);
         gameObject.SetActive(false);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    //충돌구현
+
+    /*private void Update()
     {
-        Debug.Log("닿음");
+        Collider2D crashObj = Physics2D.OverlapBox(Box.transform.position, new Vector2(Size, Size),0);
+        if(crashObj != null)
+        Debug.Log(1);
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(Box.transform.position, new Vector2(Size, Size));
+    }*/
 }
