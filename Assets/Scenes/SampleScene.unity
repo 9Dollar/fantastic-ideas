@@ -1173,6 +1173,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 420266, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   m_PrefabInstance: {fileID: 590289234}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &590289236 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
+  m_PrefabInstance: {fileID: 590289234}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &597343878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,11 +1996,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293fe95cc7456cd45bfda0fc44dae03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BasicDifficulty: 5
   difficulty: {fileID: 11400000, guid: 50dd4985391d8994386a5e6ad198c8ee, type: 2}
   player: {fileID: 231013061}
   ScoreText: {fileID: 1766918258}
   CamCrash: {fileID: 519420035}
   RedCrash: {fileID: 880867222}
+  ScorePart: {fileID: 590289236}
 --- !u!4 &1947373129
 Transform:
   m_ObjectHideFlags: 0

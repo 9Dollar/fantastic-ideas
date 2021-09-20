@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameSystem : MonoBehaviour
 {
     //게임설정
+    public float BasicDifficulty = 5;
     public Difficulty difficulty;
     public Transform player;
 
@@ -18,30 +19,32 @@ public class GameSystem : MonoBehaviour
     //충돌효과
     public Animator CamCrash;
     public Animator RedCrash;
+    public ParticleSystem ScorePart;
     void Start()
     {
         StartCoroutine("YesMan");
         StartCoroutine("ScoreUp");
+        BasicDifficulty = difficulty.difficulty;
     }
 
     IEnumerator YesMan()
     {
-        yield return new WaitForSeconds(difficulty.difficulty);
+        yield return new WaitForSeconds(BasicDifficulty);
         ObjectPooler.SpawnFromPool("box", new Vector2(Random.Range(-8, 9), 0), Quaternion.identity);
         Score += difficulty.UpScore;
 
-        yield return new WaitForSeconds(difficulty.difficulty - difficulty.difficulty * .5f);
+        yield return new WaitForSeconds(BasicDifficulty - BasicDifficulty * .5f);
         ObjectPooler.SpawnFromPool("box", new Vector2(player.position.x, 0), Quaternion.identity);
         Score += difficulty.UpScore;
         ScoreText.text = "Score:" + Score;
         StartCoroutine("YesMan");
-        if (difficulty.difficulty <= difficulty.MaxDifficulty)
+        if (BasicDifficulty <= difficulty.MaxDifficulty)
         {
-            difficulty.difficulty = difficulty.MaxDifficulty;
+            BasicDifficulty = difficulty.MaxDifficulty;
         }
         else
         {
-            difficulty.difficulty -= difficulty.MinusDifficulty;
+            BasicDifficulty -= difficulty.MinusDifficulty;
         }
     }
     IEnumerator ScoreUp()
@@ -57,8 +60,13 @@ public class GameSystem : MonoBehaviour
     }
     public void Crash()
     {
-        CamCrash.SetTrigger("Warning");
-        RedCrash.SetTrigger("Warning");
+        if (!RedCrash.GetCurrentAnimatorStateInfo(0).IsName("Warning"))
+        {
+            //CamCrash.SetTrigger("Warning");
+            RedCrash.SetTrigger("Warning");
+            //if (!ScorePart.isPlaying)
+                ScorePart.Emit(500);
+        }
     }
 
 }
